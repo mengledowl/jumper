@@ -13,7 +13,8 @@ defmodule Jumper.RegistrationController do
 		case Jumper.Registration.create(changeset, Jumper.Repo) do
 			{:ok, changeset} ->
 				conn
-				|> put_flash(:info, "Your account was created")
+				|> put_session(:current_user, changeset.id)
+				|> put_flash(:info, "Your account was successfully created!")
 				|> redirect(to: "/")
 			{:error, changeset} ->
 				conn
