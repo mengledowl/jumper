@@ -9,7 +9,7 @@ defmodule Jumper.SessionController do
 		case Jumper.Session.login(session_params, Jumper.Repo) do
 			{:ok, user} ->
 				conn
-				|> put_session(:current_user, user.id)
+				|> put_session(:user_id, user.id)
 				|> put_flash(:info, "Successfully logged in")
 				|> redirect(to: "/")
 			:error ->
@@ -21,7 +21,7 @@ defmodule Jumper.SessionController do
 
 	def delete(conn, _) do
 		conn
-		|> delete_session(:current_user)
+		|> delete_session(:user_id)
 		|> put_flash(:info, "Logged out")
 		|> redirect(to: "/")
 	end

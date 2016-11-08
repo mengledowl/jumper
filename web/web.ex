@@ -53,7 +53,7 @@ defmodule Jumper.Web do
       import Jumper.ErrorHelpers
       import Jumper.Gettext
 
-      import Jumper.Session, only: [current_user: 1, logged_in?: 1]
+      import Jumper.Session, only: [logged_in?: 1, current_user: 1]
     end
   end
 
