@@ -7,7 +7,7 @@ defmodule Jumper.LobbyChannel do
 
   def handle_in("new_message", payload, socket) do
   	current_user = socket.assigns.user && Jumper.Repo.get(Jumper.User, socket.assigns.user)
-  	broadcast! socket, "new_message", %{name: current_user.email, message: payload["message"]}
+  	broadcast! socket, "new_message", %{name: Jumper.User.display_name(current_user), message: payload["message"]}
   	{:noreply, socket}
   end
 end

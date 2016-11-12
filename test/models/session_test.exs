@@ -9,9 +9,10 @@ defmodule SessionTest do
 	alias Jumper.Registration
 
 	@credentials %{"email" => "test@test.com", "password" => "password"}
+	@params %{"email" => "test@test.com", "password" => "password", "username" => "username"}
 
 	setup do
-		changeset = User.changeset(%User{}, @credentials)
+		changeset = User.changeset(%User{}, @params)
 		Registration.create(changeset, Jumper.Repo)
 		:ok
 	end

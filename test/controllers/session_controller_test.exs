@@ -4,7 +4,7 @@ defmodule Jumper.SessionControllerTest do
 	alias Jumper.User
 	alias Jumper.Registration
 
-	@credentials %{email: "test@test.com", password: "password"}
+	@credentials %{email: "test@test.com", password: "password", username: "username"}
 
 	setup do
 		changeset = User.changeset(%User{}, @credentials)

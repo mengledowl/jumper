@@ -3,7 +3,7 @@ defmodule Jumper.RegistrationControllerTest do
 
 	alias Jumper.User
 
-	@valid_attrs %{email: "test@test.com", password: "password"}
+	@valid_attrs %{email: "test@test.com", password: "password", username: "username"}
 
 	describe "new/2" do
 		test "displays new user form", %{conn: conn} do
