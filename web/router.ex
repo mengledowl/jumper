@@ -15,6 +15,10 @@ defmodule Jumper.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :auth do
+    plug Jumper.Authenticate
+  end
+
   scope "/", Jumper do
     pipe_through :browser # Use the default browser stack
 
@@ -25,7 +29,13 @@ defmodule Jumper.Router do
     post "/login", SessionController, :create
     delete "/logout", SessionController, :delete
 
-    get "/rooms", RoomController, :show
+    # get "/rooms", RoomController, :show
+  end
+
+  scope "/rooms", Jumper do
+    pipe_through [:browser, :auth]
+
+    get "/", RoomController, :show
   end
 
   defp put_user_token(conn, _) do
