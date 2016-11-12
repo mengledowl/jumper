@@ -19,8 +19,15 @@ defmodule Jumper.UserSocket do
   #
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
-  def connect(_params, socket) do
-    {:ok, socket}
+
+  def connect(%{"token" => token}, socket) do
+    # max_age 1209600 is equivalent to two weeks in seconds
+    case Phoenix.Token.verify(socket, "user socket", token, max_age: 1209600) do
+      {:ok, user_id} ->
+        {:ok, assign(socket, :user, user_id)}
+      {:error, reason} ->
+        :error
+    end
   end
 
   # Socket id's are topics that allow you to identify all sockets for a given user:
@@ -34,4 +41,6 @@ defmodule Jumper.UserSocket do
   #
   # Returning `nil` makes this socket anonymous.
   def id(_socket), do: nil
+
+  channel "lobby", Jumper.LobbyChannel
 end
