@@ -10,5 +10,4 @@
     <% end %>
     </ul>
   </nav>
-  <span class="logo"></span>
 </header>
