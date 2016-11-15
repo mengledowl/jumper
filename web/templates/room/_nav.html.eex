@@ -1,0 +1,9 @@
+<nav class="navbar navbar-inverse room-navbar">
+	<ul class="nav nav-pills nav-stacked">
+		<%= for r <- @rooms do %>
+			<li class=<%= get_active_class(r, @room) %>><%= link("##{r.name}", to: room_path(@conn, :show, r.id)) %>
+		<% end %>
+	</ul>
+
+	<%= link("+ New Room", to: room_path(@conn, :new)) %>
+</nav>

@@ -28,14 +28,15 @@ defmodule Jumper.Router do
     get "/login", SessionController, :new
     post "/login", SessionController, :create
     delete "/logout", SessionController, :delete
-
-    # get "/rooms", RoomController, :show
   end
 
   scope "/rooms", Jumper do
     pipe_through [:browser, :auth]
 
-    get "/", RoomController, :show
+    resources "/", RoomController, only: [:show, :new, :create]
+    # get "/", RoomController, :show
+    # get "/new", RoomController, :new
+    # post "/", RoomController, :create
   end
 
   defp put_user_token(conn, _) do

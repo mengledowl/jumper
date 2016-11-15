@@ -71,7 +71,7 @@ message.on('keypress', event => {
 });
 
 channel.on('new_message', payload => {
-  list.append(`<div class="message"><b>${payload.name || 'Anonymous'}:</b> ${payload.message}</div>`);
+  list.append(`<div class="message"><b>${payload.name}:</b> ${payload.message}</div>`);
   list.prop({scrollTop: list.prop("scrollHeight")});
 });
 
