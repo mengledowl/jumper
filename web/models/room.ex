@@ -16,4 +16,10 @@ defmodule Jumper.Room do
     |> validate_required([:name])
     |> unique_constraint(:name)
   end
+
+  def count do
+    query = from r in Jumper.Room,
+    	      select: count(r.id)
+    Jumper.Repo.all(query)
+  end
 end

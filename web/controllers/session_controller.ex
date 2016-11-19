@@ -11,7 +11,7 @@ defmodule Jumper.SessionController do
 				conn
 				|> put_session(:user_id, user.id)
 				|> put_flash(:info, "Successfully logged in")
-				|> redirect(to: "/")
+				|> redirect(to: room_path(conn, :index))
 			:error ->
 				conn
 				|> put_flash(:error, "Wrong email or password")

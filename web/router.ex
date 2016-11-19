@@ -33,10 +33,7 @@ defmodule Jumper.Router do
   scope "/rooms", Jumper do
     pipe_through [:browser, :auth]
 
-    resources "/", RoomController, only: [:show, :new, :create]
-    # get "/", RoomController, :show
-    # get "/new", RoomController, :new
-    # post "/", RoomController, :create
+    resources "/", RoomController, only: [:index, :show, :new, :create]
   end
 
   defp put_user_token(conn, _) do
