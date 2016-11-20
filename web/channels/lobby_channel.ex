@@ -1,8 +1,8 @@
 defmodule Jumper.LobbyChannel do
 	use Phoenix.Channel
 
-  def join("lobby", _payload, socket) do
-  	{:ok, socket}
+  def join("lobby:" <> room_id, _payload, socket) do
+  	{:ok, assign(socket, :room_id, room_id)}
   end
 
   def handle_in("new_message", payload, socket) do
