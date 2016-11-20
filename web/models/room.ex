@@ -4,6 +4,8 @@ defmodule Jumper.Room do
   schema "rooms" do
     field :name, :string
 
+    has_many :messages, Jumper.Message
+
     timestamps()
   end
 
