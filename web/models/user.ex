@@ -7,6 +7,8 @@ defmodule Jumper.User do
     field :password, :string, virtual: true
     field :username, :string
 
+    has_many :messages, Jumper.Message
+
     timestamps()
   end
 
