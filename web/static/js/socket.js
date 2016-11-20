@@ -59,7 +59,7 @@ socket.connect()
 //   .receive("ok", resp => { console.log("Joined successfully", resp) })
 //   .receive("error", resp => { console.log("Unable to join", resp) })
 
-let channel = socket.channel("lobby", {});
+let channel = socket.channel("lobby:" + currentRoom, {});
 let list    = $('#message-list');
 let message = $('#message');
 
