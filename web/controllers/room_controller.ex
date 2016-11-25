@@ -1,6 +1,7 @@
 defmodule Jumper.RoomController do
 	use Jumper.Web, :controller
 	alias Jumper.Room
+	alias Jumper.Message
 
 	plug :put_layout, "chat.html"
 
@@ -37,7 +38,11 @@ defmodule Jumper.RoomController do
 
 	def show(conn, %{"id" => id}) do
 		room = Repo.get(Room, id)
+		query = from m in Message, where: m.room_id == ^room.id, order_by: [desc: m.inserted_at], limit: 50
+		messages = Enum.reverse Repo.all(query)
+		messages = Repo.preload(messages, :user)
+
 		rooms = Repo.all(Room)
-		render conn, "show.html", room: room, rooms: rooms
+		render conn, "show.html", room: room, rooms: rooms, messages: messages
 	end
 end
