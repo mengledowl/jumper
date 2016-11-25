@@ -1,4 +1,5 @@
 defmodule Jumper.RoomController do
+  require Logger
 	use Jumper.Web, :controller
 	alias Jumper.Room
 	alias Jumper.Message
@@ -37,12 +38,16 @@ defmodule Jumper.RoomController do
 	end
 
 	def show(conn, %{"id" => id}) do
-		room = Repo.get(Room, id)
-		query = from m in Message, where: m.room_id == ^room.id, order_by: [desc: m.inserted_at], limit: 50
-		messages = Enum.reverse Repo.all(query)
-		messages = Repo.preload(messages, :user)
+	  query = from m in Message, where: m.room_id == ^id, order_by: [desc: m.inserted_at]
 
-		rooms = Repo.all(Room)
+	  room_task = Task.async(fn -> Repo.get(Room, id) end)
+	  messages_task = Task.async(fn -> Repo.preload(Repo.all(query), :user) end)
+	  rooms_task = Task.async(fn -> Repo.all(Room) end)
+
+	  room = Task.await(room_task)
+	  messages = Enum.reverse Task.await(messages_task)
+	  rooms = Task.await(rooms_task)
+
 		render conn, "show.html", room: room, rooms: rooms, messages: messages
 	end
 end
