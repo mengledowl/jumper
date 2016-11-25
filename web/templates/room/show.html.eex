@@ -4,7 +4,11 @@
 	</div>
 	
 	<div class="col-xs-10 no-space">
-		<div id="message-list"></div>
+		<div id="message-list">
+			<%= for m <- @messages do %>
+				<div class="message"><b><%= Jumper.User.display_name(m.user) %>:</b> <%= m.value %></div>
+			<% end %>
+		</div>
 		<div class="form-group message">
 		   <input type='text' id='message' class='form-control' placeholder='Message' />
 		</div>
